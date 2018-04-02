@@ -6,6 +6,9 @@
       valueKey="rank"
       :rotate="{from: 0, to: 0, numOfOrientation: 0}"
       :wordClick="tagClick" />
+    <ul>
+      <li v-for="tag in selectedTags" v-bind:key="tag.name">{{tag.name}}</li>
+    </ul>
   </div>
 </template>
 
@@ -29,11 +32,11 @@ export default {
   methods: {
     tagClick: function (tagName) {
       let exists = this.selectedTags.find(tag => {
-        return tag.name === name
+        return tag.name === tagName
       })
       if (!exists) {
         let tag = this.tags.find(tag => {
-          return tag.name === name
+          return tag.name === tagName
         })
         this.selectedTags.unshift(tag)
       }
@@ -61,7 +64,11 @@ ul {
 }
 li {
   display: inline-block;
-  margin: 0 10px;
+  margin: 0 5px;
+}
+li:before {
+  content: "#";
+  padding-right: 0px;
 }
 a {
   color: #42b983;
