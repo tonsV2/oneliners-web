@@ -4,6 +4,7 @@
       :data="tags"
       nameKey="name"
       valueKey="rank"
+      :rotate="{from: 0, to: 0, numOfOrientation: 0}"
       :wordClick="tagClick" />
   </div>
 </template>
