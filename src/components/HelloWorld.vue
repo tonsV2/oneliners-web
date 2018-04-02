@@ -16,10 +16,15 @@ export default {
   name: 'HelloWorld',
   methods: {
     tagClick: function (tagName) {
-      let tag = this.tags.find(tag => {
-        return tag.name === tagName
+      let exists = this.selectedTags.find(tag => {
+        return tag.name === name
       })
-      this.selectedTags.unshift(tag)
+      if (!exists) {
+        let tag = this.tags.find(tag => {
+          return tag.name === name
+        })
+        this.selectedTags.unshift(tag)
+      }
     }
   },
   created () {
