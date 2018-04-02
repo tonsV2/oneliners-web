@@ -3,7 +3,8 @@
     <wordcloud
       :data="tags"
       nameKey="name"
-      valueKey="rank" />
+      valueKey="rank"
+      :wordClick="tagClick" />
   </div>
 </template>
 
@@ -13,6 +14,15 @@ import axios from 'axios'
 
 export default {
   name: 'HelloWorld',
+  methods: {
+    tagClick: function (tagName) {
+      let tag = this.tags.find(tag => {
+        return tag.name === tagName
+      })
+      this.selectedTags.unshift(tag)
+      console.log(this.selectedTags)
+    }
+  },
   created () {
     axios.get('http://localhost:8080/api/tagsByRank').then(res => {
       this.tags = res.data
@@ -20,7 +30,8 @@ export default {
   },
   data () {
     return {
-      tags: []
+      tags: [],
+      selectedTags: []
     }
   },
   components: {
