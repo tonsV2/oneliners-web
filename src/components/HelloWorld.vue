@@ -20,7 +20,6 @@ export default {
         return tag.name === tagName
       })
       this.selectedTags.unshift(tag)
-      console.log(this.selectedTags)
     }
   },
   created () {
@@ -32,6 +31,11 @@ export default {
     return {
       tags: [],
       selectedTags: []
+    }
+  },
+  watch: {
+    selectedTags: function () {
+      console.log(this.selectedTags)
     }
   },
   components: {
