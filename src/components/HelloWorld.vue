@@ -14,6 +14,17 @@ import axios from 'axios'
 
 export default {
   name: 'HelloWorld',
+  data () {
+    return {
+      tags: [],
+      selectedTags: []
+    }
+  },
+  created () {
+    axios.get('http://localhost:8080/api/tagsByRank').then(res => {
+      this.tags = res.data
+    })
+  },
   methods: {
     tagClick: function (tagName) {
       let exists = this.selectedTags.find(tag => {
@@ -25,17 +36,6 @@ export default {
         })
         this.selectedTags.unshift(tag)
       }
-    }
-  },
-  created () {
-    axios.get('http://localhost:8080/api/tagsByRank').then(res => {
-      this.tags = res.data
-    })
-  },
-  data () {
-    return {
-      tags: [],
-      selectedTags: []
     }
   },
   watch: {
