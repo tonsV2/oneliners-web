@@ -9,17 +9,18 @@
 
 <script>
 import wordcloud from 'vue-wordcloud'
+import axios from 'axios'
 
 export default {
   name: 'HelloWorld',
+  created () {
+    axios.get('http://localhost:8080/api/tagsByRank').then(res => {
+      this.tags = res.data
+    })
+  },
   data () {
     return {
-      tags: [
-        {'name': 'tag0', 'rank': 1},
-        {'name': 'tag1', 'rank': 2},
-        {'name': 'tag2', 'rank': 3},
-        {'name': 'tag3', 'rank': 4}
-      ]
+      tags: []
     }
   },
   components: {
