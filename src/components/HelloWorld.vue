@@ -7,7 +7,7 @@
       :rotate="{from: 0, to: 0, numOfOrientation: 0}"
       :wordClick="tagClick" />
     <ul>
-      <li v-for="tag in selectedTags" v-bind:key="tag.name">{{tag.name}}</li>
+      <li v-for="tag in selectedTags" v-bind:key="tag.name" @click="unselectTag(tag)">{{tag.name}}</li>
     </ul>
   </div>
 </template>
@@ -30,6 +30,9 @@ export default {
     })
   },
   methods: {
+    unselectTag: function (tag) {
+      this.selectedTags = this.selectedTags.filter(t => t.name !== tag.name)
+    },
     tagClick: function (tagName) {
       let exists = this.selectedTags.find(tag => {
         return tag.name === tagName
