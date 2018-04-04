@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  web:
+    image: tons/oneliners-web
+    build: .
+    ports:
+      - 80:80
+    environment:
+      BACKEND: http://nuc:8080/api
+  api:
+    image: tons/oneliner-backend
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_PROFILES_ACTIVE: test
