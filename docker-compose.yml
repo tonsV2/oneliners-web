@@ -28,8 +28,6 @@ services:
      - database
     ports:
      - 8080:8080
-#    environment:
-#      SPRING_PROFILES_ACTIVE: test
     environment:
       SPRING_PROFILES_ACTIVE: docker
      # The entire url should probably be passed and not just the database name... or not, jdbc, postgresql and the port(?) are static and wont change
