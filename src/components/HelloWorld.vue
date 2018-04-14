@@ -69,7 +69,7 @@ export default {
   watch: {
     selectedTags: function () {
       let tagNames = this.selectedTags.map(tag => tag.name)
-      axios.post('http://localhost:8080/api/findByAllTags', tagNames).then(res => { this.oneLiners = res.data })
+      axios.post(this.$backend + '/findByAllTags', tagNames).then(res => { this.oneLiners = res.data })
     }
   },
   components: {
