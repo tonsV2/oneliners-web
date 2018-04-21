@@ -42,12 +42,12 @@ export default {
   },
   methods: {
     fetchTags: function () {
-      axios.get(this.$backend + '/tagsByRank').then(res => {
+      axios.get(process.env.ONELINERS_API + '/tagsByRank').then(res => {
         this.tags = res.data
       })
     },
     fetchOneLiners: function () {
-      axios.get(this.$backend + '/oneliners').then(res => {
+      axios.get(process.env.ONELINERS_API + '/oneliners').then(res => {
         this.oneLiners = res.data
       })
     },
@@ -69,7 +69,7 @@ export default {
   watch: {
     selectedTags: function () {
       let tagNames = this.selectedTags.map(tag => tag.name)
-      axios.post(this.$backend + '/findByAllTags', tagNames).then(res => { this.oneLiners = res.data })
+      axios.post(process.env.ONELINERS_API + '/findByAllTags', tagNames).then(res => { this.oneLiners = res.data })
     }
   },
   components: {
