@@ -40,11 +40,11 @@ services:
   database:
     image: postgres:10-alpine
     volumes:
-      - database-vol:/var/lib/postgresql/data
+      - database:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_DATABASE}
 
 volumes:
-  database-vol: {}
+  database: {}
