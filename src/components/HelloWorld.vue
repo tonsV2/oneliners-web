@@ -9,6 +9,7 @@
     <ul>
       <li v-for="tag in selectedTags" v-bind:key="tag.name" @click="unselectTag(tag)" class="selectedTag">{{tag.name}}</li>
     </ul>
+    <span>{{oneLiners.length}} oneliners matched</span>
     <ul id="oneLiners">
       <li v-for="oneLiner in oneLiners" v-bind:key="oneLiner.id" class="oneLiner">
         <h3>{{oneLiner.name}}</h3>
