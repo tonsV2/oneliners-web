@@ -1,4 +1,4 @@
-FROM node:alpine as builder
+FROM node:alpine AS builder
 WORKDIR /src
 ADD . /src
 RUN npm install && npm run build
