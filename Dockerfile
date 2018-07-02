@@ -8,3 +8,4 @@ WORKDIR /usr/share/nginx/html
 COPY --from=builder /src/dist .
 RUN apk --no-cache add gettext
 CMD target=$(ls static/js/app.*.js) && echo $(envsubst '$ONELINERS_API' < $target) > $target && exec nginx -g 'daemon off;'
+HEALTHCHECK --interval=5s --timeout=3s CMD curl --fail http://localhost || exit 1
