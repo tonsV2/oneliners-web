@@ -6,7 +6,7 @@ services:
     volumes:
       - .:/src
     working_dir: /src
-    command: npm run dev
+    command: /bin/sh -c 'npm install && npm run dev'
     depends_on:
       - api
     ports:
