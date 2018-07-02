@@ -18,7 +18,7 @@ services:
     image: tons/oneliners-web
     build: .
     environment:
-      ONELINERS_API: http://api.oneliners.fitfit.dk/api
+      ONELINERS_API: ${BACKEND}
     ports:
       - 80:80
 
