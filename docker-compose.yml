@@ -16,7 +16,7 @@ services:
 # TODO:
 #      ONELINERS_API: ${BACKEND}
 
-  prod:
+  release:
     image: tons/oneliners-web
     build: .
     environment:
