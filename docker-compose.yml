@@ -13,6 +13,8 @@ services:
       - 80:8080
     environment:
       HOST: 0.0.0.0
+# TODO:
+#      ONELINERS_API: ${BACKEND}
 
   prod:
     image: tons/oneliners-web
