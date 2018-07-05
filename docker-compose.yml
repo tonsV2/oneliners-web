@@ -1,6 +1,14 @@
 version: '3.4'
 
 services:
+  release:
+    image: tons/oneliners-web
+    build: .
+    environment:
+      ONELINERS_API: ${BACKEND}
+    ports:
+      - 80:80
+
   dev:
     image: node:alpine
     volumes:
@@ -15,14 +23,6 @@ services:
       HOST: 0.0.0.0
 # TODO:
 #      ONELINERS_API: ${BACKEND}
-
-  release:
-    image: tons/oneliners-web
-    build: .
-    environment:
-      ONELINERS_API: ${BACKEND}
-    ports:
-      - 80:80
 
   api:
     image: tons/oneliner-backend
