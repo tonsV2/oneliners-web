@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   release:
-    image: tons/oneliners-web
+    image: tons/oneliners-web:${TAG}
     build: .
     environment:
       ONELINERS_API: ${BACKEND}
