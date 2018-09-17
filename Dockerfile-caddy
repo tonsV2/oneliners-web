@@ -1,0 +1,13 @@
+FROM node:alpine AS builder
+WORKDIR /src
+ADD . /src
+RUN npm install && npm run build
+
+FROM abiosoft/caddy
+ADD ./Caddyfile /etc/Caddyfile
+WORKDIR /srv
+COPY --from=builder /src/dist .
+RUN apk --no-cache add gettext
+#CMD target=$(ls static/js/app.*.js) && echo $(envsubst '$ONELINERS_API' < $target) > $target && exec /usr/bin/builder.sh
+ENTRYPOINT exec /usr/bin/caddy --conf /etc/Caddyfile --log stdout --agree=$ACME_AGREE
+HEALTHCHECK --interval=10s --timeout=3s CMD wget --quiet --tries=1 --spider http://localhost || exit 1

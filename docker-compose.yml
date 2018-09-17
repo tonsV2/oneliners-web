@@ -1,6 +1,17 @@
 version: '3.4'
 
 services:
+  caddy:
+    image: tons/oneliners-web:caddy
+    build:
+      context: .
+      dockerfile: Dockerfile-caddy
+    environment:
+      ONELINERS_API: ${BACKEND}
+      ACME_AGREE: "true"
+    ports:
+      - 80:80
+
   release:
     image: tons/oneliners-web:${TAG}
     build: .
