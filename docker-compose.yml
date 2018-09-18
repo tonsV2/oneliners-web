@@ -8,9 +8,9 @@ services:
       dockerfile: Dockerfile-caddy
     environment:
       ONELINERS_API: ${BACKEND}
-      ACME_AGREE: "true"
     ports:
       - 80:80
+      - 443:443
 
   release:
     image: tons/oneliners-web:${TAG}
