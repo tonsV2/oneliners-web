@@ -8,6 +8,8 @@ services:
       dockerfile: Dockerfile-caddy
     environment:
       ONELINERS_API: ${BACKEND}
+      HOSTNAME: ${HOSTNAME}
+      TLS_EMAIL: ${TLS_EMAIL}
     ports:
       - 80:80
       - 443:443

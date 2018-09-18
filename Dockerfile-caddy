@@ -4,9 +4,11 @@ ADD . /src
 RUN npm install && npm run build
 
 FROM abiosoft/caddy
-ADD ./Caddyfile /etc/Caddyfile
 WORKDIR /srv
 COPY --from=builder /src/dist .
 RUN apk --no-cache add gettext
-ENTRYPOINT target=$(ls static/js/app.*.js) && echo -e $(envsubst '$ONELINERS_API' < $target) > $target && exec /usr/bin/caddy --conf /etc/Caddyfile --log stdout --agree=true
+ENTRYPOINT echo -e "$HOSTNAME\ntls $TLS_EMAIL" > /etc/Caddyfile && \
+  target=$(ls static/js/app.*.js) && \
+  echo $(envsubst '$ONELINERS_API' < $target) > $target && \
+  exec /usr/bin/caddy --conf /etc/Caddyfile --log stdout --agree=true
 HEALTHCHECK --interval=10s --timeout=3s CMD wget --quiet --tries=1 --spider http://localhost:2015 || exit 1
