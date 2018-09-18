@@ -7,8 +7,11 @@ FROM abiosoft/caddy
 WORKDIR /srv
 COPY --from=builder /src/dist .
 RUN apk --no-cache add gettext
+# Create Caddyfile from environment variables
 ENTRYPOINT echo -e "$HOSTNAME\ntls $TLS_EMAIL" > /etc/Caddyfile && \
+# Substitute environment variable ONELINERS_API into javascript file
   target=$(ls static/js/app.*.js) && \
   echo $(envsubst '$ONELINERS_API' < $target) > $target && \
+# Launch Caddy web server
   exec /usr/bin/caddy --conf /etc/Caddyfile --log stdout --agree=true
 HEALTHCHECK --interval=10s --timeout=3s CMD wget --quiet --tries=1 --spider http://localhost:2015 || exit 1
