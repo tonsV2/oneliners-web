@@ -18,7 +18,7 @@
         <div>
           <sub v-for="tag in oneLiner.tags" v-bind:key="tag.id" @click="selectTag(tag.name)">#{{tag.name}} </sub>
         </div>
-        <a v-bind:href="'http://localhost:8080/api/oneliners/' + oneLiner.id">api</a>
+        <a v-bind:href="ONELINERS_API + '/oneliners/' + oneLiner.id">api</a>
       </li>
     </ul>
   </div>
@@ -32,6 +32,7 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
+      ONELINERS_API: process.env.ONELINERS_API,
       tags: [],
       selectedTags: [],
       oneLiners: []

@@ -1,14 +1,6 @@
-version: '3.4'
+version: '3'
 
 services:
-  release:
-    image: tons/oneliners-web:${TAG}
-    build: .
-    environment:
-      ONELINERS_API: ${BACKEND}
-    ports:
-      - 80:80
-
   dev:
     image: node:alpine
     volumes:
@@ -18,11 +10,22 @@ services:
     depends_on:
       - api
     ports:
-      - 80:8080
+      - 80:80
+    stdin_open: true
+    tty: true
     environment:
+      ONELINERS_API: ${BACKEND}
       HOST: 0.0.0.0
-# TODO:
-#      ONELINERS_API: ${BACKEND}
+      PORT: 80
+      CHOKIDAR_USEPOLLING: "true"
+
+  release:
+    image: tons/oneliners-web:${TAG}
+    build: .
+    environment:
+      ONELINERS_API: ${BACKEND}
+    ports:
+      - 80:80
 
   api:
     image: tons/oneliner-backend
@@ -33,18 +36,27 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: docker
      # The entire url should probably be passed and not just the database name... or not, jdbc, postgresql and the port(?) are static and wont change
-      DATASOURCE_URL: jdbc:postgresql://database:5432/${DB_DATABASE}
-      DATASOURCE_USERNAME: ${DB_USERNAME}
-      DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      DATASOURCE_URL: jdbc:postgresql://database:5432/${DB_DATABASE:-database}
+      DATASOURCE_USERNAME: ${DB_USERNAME:-username}
+      DATASOURCE_PASSWORD: ${DB_PASSWORD:-password}
 
   database:
     image: postgres:10-alpine
     volumes:
       - database:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DATABASE: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME:-username}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+      POSTGRES_DATABASE: ${DB_DATABASE:-database}
+
+  ci:
+    image: tons/dc-ci
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - .:/src
+    environment:
+      REGISTRY_USER: ${REGISTRY_USER}
+      REGISTRY_PASS: ${REGISTRY_PASS}
 
 volumes:
   database: {}
